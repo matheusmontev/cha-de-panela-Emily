@@ -24,3 +24,6 @@ cha-de-panela-Emily/
 │   ├── app.js              ← Lógica da página principal e de presentes
 │   └── admin.js            ← Lógica do painel admin (CRUD e gerenciamento)
 ```
+
+## 📝 Sobre o Projeto
+Este projeto foi desenvolvido com a ajuda de Inteligência Artificial para atender a uma necessidade pontual e imediata (MVP feito às pressas). Por esse motivo e pelo escopo fechado do evento, a arquitetura de segurança foi intencionalmente simplificada (sem sistema de senhas ou autenticação complexa), focando apenas na experiência visual e funcional básica e na praticidade de não precisar de login e criação de contas para os convidados.
