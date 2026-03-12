@@ -23,61 +23,11 @@
                 Preparei essa lista de presentes com muito carinho — se quiser me presentear, 
                 escolha o que falar mais ao seu coração. Agradeço de todo coração pela sua presença e pelo seu carinho!
             </p>
-            <a href="#presentes" class="btn-primary" id="btn-ver-presentes">
+            <a href="presentes.html" class="btn-primary" id="btn-ver-presentes">
                 🎁 Ver Lista de Presentes
             </a>
         </div>
     </section>
-
-    <!-- ============ LISTA DE PRESENTES ============ -->
-    <section id="presentes" class="gift-section">
-        <div class="container">
-            <h2 class="section-title">Lista de Presentes</h2>
-
-            <div class="progress-container">
-                <p class="progress-text" id="progress-text">Carregando...</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-            </div>
-
-            <div class="filters">
-                <button class="filter-btn active" data-filter="todos">Todos</button>
-                <button class="filter-btn" data-filter="disponiveis">Disponíveis</button>
-                <button class="filter-btn" data-filter="escolhidos">Escolhidos</button>
-            </div>
-
-            <div id="gift-grid" class="gift-grid">
-                <!-- Cards renderizados pelo JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ MODAL DE SELEÇÃO ============ -->
-    <div id="modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <img class="modal-img" id="modal-img" src="" alt="">
-            <h3 id="modal-nome"></h3>
-            <div class="modal-form">
-                <label for="nome-convidado">Qual é o seu nome?</label>
-                <input type="text" id="nome-convidado" placeholder="Digite seu nome completo" maxlength="60">
-                <p class="error-msg" id="error-msg"></p>
-            </div>
-            <div class="modal-actions">
-                <button id="btn-confirmar" class="btn-primary">🎉 Confirmar Presente</button>
-                <button id="btn-voltar" class="btn-secondary">Voltar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============ TOAST DE SUCESSO ============ -->
-    <div id="toast" class="toast">
-        <p>Oba! Você escolheu esse presente 🎉</p>
-    </div>
-
-    <!-- ============ CONFETTI ============ -->
-    <canvas id="confetti-canvas"></canvas>
 
     <!-- ============ FIREBASE SDK ============ -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>

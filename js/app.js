@@ -9,10 +9,15 @@ let presenteSelecionadoId = null;
 
 // ============ INICIALIZAÇÃO ============
 document.addEventListener('DOMContentLoaded', () => {
-    carregarMensagem();
-    iniciarListenerPresentes();
-    configurarFiltros();
-    configurarModal();
+    if (document.getElementById('hero-message')) {
+        carregarMensagem();
+    }
+    
+    if (document.getElementById('gift-grid')) {
+        iniciarListenerPresentes();
+        configurarFiltros();
+        configurarModal();
+    }
 });
 
 // Carrega a mensagem personalizada do Firestore (editável pelo admin)
@@ -68,7 +73,7 @@ function renderizarPresentes() {
                 <div class="card-image">
                     <img src="${p.fotoUrl}" alt="${p.nome}" loading="lazy" 
                          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><rect fill=%22%23fce4ec%22 width=%22200%22 height=%22200%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>🎁</text></svg>'">
-                    ${reservado ? `<span class="reserved-badge">${p.nomeConvidado}</span>` : ''}
+                    ${reservado ? `<span class="reserved-badge">Reservado</span>` : ''}
                 </div>
                 <div class="card-info">
                     <h3>${p.nome}</h3>
