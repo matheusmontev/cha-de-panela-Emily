@@ -12,6 +12,7 @@ let confirmCallback = null;
 document.addEventListener('DOMContentLoaded', () => {
     configurarLogin();
     configurarFormulario();
+    configurarMensagem();
     configurarEditModal();
     configurarConfirmModal();
 });
@@ -36,6 +37,7 @@ function configurarLogin() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('admin-dashboard').style.display = 'block';
             iniciarListenerPresentes();
+            carregarMensagemAdmin();
         } else {
             loginError.textContent = 'Senha incorreta.';
             senhaInput.value = '';
@@ -157,6 +159,53 @@ function configurarFormulario() {
 
         btnAdd.disabled = false;
         btnAdd.innerHTML = 'Adicionar Presente';
+    });
+}
+
+// ============ MENSAGEM DE BOAS-VINDAS ============
+const MENSAGEM_PADRAO = 'Que alegria ter você aqui! Estou muito feliz em compartilhar esse momento tão especial. Preparei essa lista de presentes com muito carinho — se quiser me presentear, escolha o que falar mais ao seu coração. Agradeço de todo coração pela sua presença e pelo seu carinho!';
+
+function carregarMensagemAdmin() {
+    db.collection('config').doc('site').get().then(doc => {
+        const textarea = document.getElementById('mensagem-input');
+        if (doc.exists && doc.data().mensagem) {
+            textarea.value = doc.data().mensagem;
+        } else {
+            textarea.value = MENSAGEM_PADRAO;
+        }
+    }).catch(() => {
+        document.getElementById('mensagem-input').value = MENSAGEM_PADRAO;
+    });
+}
+
+function configurarMensagem() {
+    const btnSalvar = document.getElementById('btn-salvar-msg');
+    const statusEl = document.getElementById('msg-status');
+
+    btnSalvar.addEventListener('click', async () => {
+        const mensagem = document.getElementById('mensagem-input').value.trim();
+        if (!mensagem) {
+            statusEl.textContent = 'A mensagem não pode ficar vazia.';
+            return;
+        }
+
+        btnSalvar.disabled = true;
+        btnSalvar.innerHTML = '<span class="spinner"></span>';
+        statusEl.textContent = '';
+
+        try {
+            await db.collection('config').doc('site').set({ mensagem }, { merge: true });
+            statusEl.style.color = 'var(--color-success)';
+            statusEl.textContent = '✓ Mensagem salva com sucesso!';
+            setTimeout(() => { statusEl.textContent = ''; statusEl.style.color = ''; }, 3000);
+        } catch (error) {
+            console.error('Erro ao salvar mensagem:', error);
+            statusEl.style.color = '';
+            statusEl.textContent = 'Erro ao salvar. Tente novamente.';
+        }
+
+        btnSalvar.disabled = false;
+        btnSalvar.innerHTML = 'Salvar Mensagem';
     });
 }
 

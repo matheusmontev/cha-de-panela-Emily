@@ -9,10 +9,20 @@ let presenteSelecionadoId = null;
 
 // ============ INICIALIZAÇÃO ============
 document.addEventListener('DOMContentLoaded', () => {
+    carregarMensagem();
     iniciarListenerPresentes();
     configurarFiltros();
     configurarModal();
 });
+
+// Carrega a mensagem personalizada do Firestore (editável pelo admin)
+function carregarMensagem() {
+    db.collection('config').doc('site').get().then(doc => {
+        if (doc.exists && doc.data().mensagem) {
+            document.getElementById('hero-message').textContent = doc.data().mensagem;
+        }
+    }).catch(err => console.log('Usando mensagem padrão'));
+}
 
 // Listener em tempo real — atualiza a lista automaticamente
 function iniciarListenerPresentes() {

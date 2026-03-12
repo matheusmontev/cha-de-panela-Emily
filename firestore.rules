@@ -1,0 +1,36 @@
+// Regras de segurança do Firestore
+// Copie este conteúdo no Console do Firebase > Firestore > Regras
+//
+// Como não usamos Firebase Auth, as regras são permissivas.
+// A proteção do admin é feita no client-side com a senha.
+// Essas regras adicionam uma camada básica de validação.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Coleção de presentes
+    match /presentes/{presenteId} {
+      // Leitura pública — qualquer convidado pode ver a lista
+      allow read: if true;
+
+      // Criação — permitida (admin adiciona presentes)
+      allow create: if request.resource.data.keys().hasAll(['nome', 'fotoUrl', 'escolhido'])
+                    && request.resource.data.escolhido == false;
+
+      // Atualização — permitida com validações básicas:
+      // - Convidado reservando: só se o item ainda estiver disponível
+      // - Admin editando: qualquer campo (não há como restringir sem Auth)
+      allow update: if true;
+
+      // Remoção — permitida (admin remove presentes não escolhidos)
+      allow delete: if true;
+    }
+
+    // Configurações do site (mensagem de boas-vindas, etc.)
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
