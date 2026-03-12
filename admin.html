@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Chá de Panela da Emily</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+    <!-- ============ TELA DE LOGIN ============ -->
+    <div id="login-screen" class="admin-login">
+        <div class="login-card">
+            <h1>Painel da Emily 💖</h1>
+            <p>Digite a senha para acessar o painel</p>
+            <input type="password" id="senha-input" placeholder="••••••" autocomplete="off">
+            <button id="btn-login" class="btn-primary">Entrar</button>
+            <p class="error-msg" id="login-error"></p>
+        </div>
+    </div>
+
+    <!-- ============ DASHBOARD ADMIN ============ -->
+    <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+
+        <!-- Header -->
+        <header class="admin-header">
+            <h1>Painel da Emily 💖</h1>
+            <button id="btn-logout" class="btn-secondary">Sair</button>
+        </header>
+
+        <!-- Estatísticas -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="stat-total">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-escolhidos">0</div>
+                <div class="stat-label">Escolhidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-disponiveis">0</div>
+                <div class="stat-label">Disponíveis</div>
+            </div>
+        </div>
+
+        <!-- Barra de progresso -->
+        <div class="admin-section">
+            <div class="progress-container" style="margin-bottom: 0;">
+                <p class="progress-text" id="admin-progress-text">0 de 0 presentes escolhidos</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="admin-progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adicionar presente -->
+        <div class="admin-section">
+            <h2>➕ Adicionar Presente</h2>
+            <div class="add-form">
+                <input type="text" id="novo-nome" placeholder="Nome do presente (ex: Jogo de Panelas)" maxlength="80">
+                <input type="url" id="nova-foto" placeholder="URL da foto do produto">
+                <p class="error-msg" id="add-error"></p>
+                <button id="btn-add" class="btn-primary">Adicionar Presente</button>
+            </div>
+        </div>
+
+        <!-- Lista de presentes -->
+        <div class="admin-section">
+            <h2>🎁 Presentes Cadastrados</h2>
+            <div id="admin-gifts">
+                <!-- Renderizado pelo JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL DE EDIÇÃO ============ -->
+    <div id="edit-modal" class="edit-modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="edit-modal-close">&times;</button>
+            <h3>Editar Presente</h3>
+            <div class="modal-form">
+                <label for="edit-nome">Nome do presente</label>
+                <input type="text" id="edit-nome" maxlength="80">
+                <label for="edit-foto" style="margin-top: 12px;">URL da foto</label>
+                <input type="url" id="edit-foto">
+                <p class="error-msg" id="edit-error"></p>
+            </div>
+            <div class="modal-actions" style="margin-top: 16px;">
+                <button id="btn-save-edit" class="btn-primary">Salvar</button>
+                <button id="btn-cancel-edit" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL DE CONFIRMAÇÃO ============ -->
+    <div id="confirm-modal" class="confirm-overlay">
+        <div class="confirm-box">
+            <p id="confirm-msg">Tem certeza?</p>
+            <div class="confirm-actions">
+                <button id="btn-confirm-yes" class="btn-primary btn-small" style="padding: 10px 24px;">Sim</button>
+                <button id="btn-confirm-no" class="btn-secondary btn-small" style="padding: 10px 24px;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ FIREBASE SDK ============ -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
